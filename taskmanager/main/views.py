@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from . models import Task
 from . forms import TaskForm
 # Create your views here.
@@ -11,12 +11,25 @@ def index(request):
 
 def create_task(request):
     title_page = 'Добавить задачу'
+    error = ''
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            error = 'Вы ввели некорректные данные'
+
+
+
 
     form = TaskForm()
 
     context = {
         'title_page': title_page,
-        'form': form
+        'form': form,
+        'error': error
 
     }
     return render(request, 'main/create_task.html', context)
