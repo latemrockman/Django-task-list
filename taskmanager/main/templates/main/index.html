@@ -5,7 +5,29 @@
 {% block content %}
 
 <h1>Главная страница</h1>
-<p>Содержание страницы</p>
 
+
+<br>
+
+
+{% if all_tasks %}
+
+    {% for task in all_tasks%}
+
+    <div class="alert alert-warning mt-2">
+
+        <h3>{{task.title}}</h3>
+        <p>{{task.task}}</p>
+
+    </div>
+
+
+
+
+    {% endfor %}
+
+{% else %}
+    <p>Задач нет</p>
+{% endif %}
 
 {% endblock %}
